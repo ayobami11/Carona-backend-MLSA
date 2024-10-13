@@ -5,7 +5,7 @@ import { generateHashedValue } from "../utils/auth.js"
 
 export const registerAccount = async (req, res, next)  => {
     try{
-        const {firstName, lastName, email, password, username} = req.body
+        const {firstName, lastName, email, password, username} = req.validatedUser
 
         const existingUser = await User.findOne({email})
 
