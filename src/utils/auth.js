@@ -1,21 +1,32 @@
 import bcryptjs from "bcryptjs"
+const { genSaltSync, hashSync, compareSync } = bcryptjs
 
-const { genSaltSync, hashSync, compareSync } = bcryptjs;
+import jsonwebtoken from "jsonwebtoken"
+const { sign, verify } = jsonwebtoken
 
+import { configDotenv } from "dotenv"
 
+configDotenv()
 
-export const generateHashedValue = (value) => {
+const jwt_secret = process.env.JWT_SECRET
+
+export const generateHashedValue = (password) => {
     const salt = genSaltSync(10)
-    return hashSync(value, salt)
+    return hashSync(password, salt)
 }
 
-export const checkValidPassword = (value, hash) => {
-
+export const isPasswordCorrect = (password, hash) => {
+    return compareSync(password, hash)
 } 
 
+export const createAccessToken = (id) => {
+    const token = sign({id}, jwt_secret, {expiresIn: "1h"})
+    return token
+}
 
-
-
+export const isTokenValid = (token) => {
+    return verify(token, jwt_secret)
+}
 
 
 
