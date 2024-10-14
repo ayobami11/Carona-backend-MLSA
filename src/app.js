@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import authRouter from "./routes/auth.js";
 import { API_VERSION } from "./config/env.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import vehicleRouter from "./routes/vehicle.js";
 
 const app = express()
 
@@ -12,7 +13,8 @@ app.use(express.json())
 
 // routes
 app.use(`/api/v${API_VERSION}/auth`, authRouter) // http://localhost:3000/api/v1/auth
-
+app.use("/vehicle", vehicleRouter)
+app.use("/auth", authRouter)
 
 // error handler and stuff middlewares
 
