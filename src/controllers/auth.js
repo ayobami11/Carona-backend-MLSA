@@ -8,6 +8,7 @@ export const registerAccount = async (req, res, next)  => {
         logger.info("START: Register Account Service")
 
         const {firstName, lastName, email, password, username} = req.body
+        const {firstName, lastName, email, password, username} = req.validatedUser
 
         const existingUser = await User.findOne({email})
 
