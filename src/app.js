@@ -2,6 +2,7 @@ import express from "express";
 import { PORT } from "./config/env.js";
 import connectDB from "./config/db.js";
 import authRouter from "./routes/auth.js";
+import tripRouter from "./routes/trip.js";
 import { API_VERSION } from "./config/env.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
@@ -12,6 +13,7 @@ app.use(express.json())
 
 // routes
 app.use(`/api/v${API_VERSION}/auth`, authRouter) // http://localhost:3000/api/v1/auth
+app.use(`/api/v${API_VERSION}/trips`, tripRouter) // http://localhost:3000/api/v1/trips
 
 
 // error handler and stuff middlewares
