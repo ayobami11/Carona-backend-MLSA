@@ -6,11 +6,9 @@ import logger from "../utils/logger.js"
 export const registerAccount = async (req, res, next)  => {
     try{
         logger.info("START: Register Account Service")
+        const {firstName, lastName, email, password, username, role} = req.validatedUser
 
-        const {firstName, lastName, email, password, username} = req.body
-        const {firstName, lastName, email, password, username} = req.validatedUser
-
-        const existingUser = await User.findOne({email})
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] })
 
         if (existingUser){
             return errorResponse(res, StatusCodes.BAD_REQUEST, `User already exists. Log in instead`)
@@ -21,7 +19,8 @@ export const registerAccount = async (req, res, next)  => {
             lastName,
             email,
             password: generateHashedValue(password),
-            username
+            username,
+            role
         })
 
         const accessToken = createAccessToken(newUser.id)
@@ -36,7 +35,8 @@ export const registerAccount = async (req, res, next)  => {
             next(error)
             return errorResponse(res, StatusCodes.CONFLICT, "Username already exists. Try another username.")
         }
-        console.log(JSON.stringify(error))
+        // console.log(JSON.stringify(error))
+        console.log(error)
         next(error)
     }
 
