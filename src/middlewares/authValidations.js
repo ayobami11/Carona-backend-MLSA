@@ -39,7 +39,12 @@ const userSchema = z.object({
     password: z.string({
                     required_error: "Password is required"
                 })
-               .trim()
+               .trim(),
+    
+               role: z.enum(['admin', 'user'], {
+                required_error: "Role is required",
+                invalid_type_error: "Role must be either 'admin' or 'user'"
+            }).optional()
 
 })
 

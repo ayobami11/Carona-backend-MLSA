@@ -4,8 +4,10 @@ import connectDB from "./config/db.js";
 import authRouter from "./routes/auth.js";
 import { API_VERSION } from "./config/env.js";
 import errorHandler from "./middlewares/errorHandler.js";
-import routes from "./routes/routes.js"
+import {routes} from "./routes/routes.js"
 import vehicleRouter from "./routes/vehicle.js";
+import { shareRouter } from "./routes/caronaShareRoutes.js";
+import { adminRouter } from "./routes/adminAuth.js";
 
 const app = express()
 
@@ -18,6 +20,8 @@ app.use("/routes" , routes)
 
 app.use("/vehicle", vehicleRouter)
 app.use("/auth", authRouter)
+app.use(`/api/v${API_VERSION}/caronashare`, shareRouter)
+app.use(`/api/v${API_VERSION}/admin`, adminRouter)
 
 // error handler and stuff middlewares
 
