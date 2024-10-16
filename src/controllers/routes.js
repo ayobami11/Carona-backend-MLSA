@@ -6,8 +6,6 @@ import {StatusCodes} from 'http-status-codes'
 import logger from '../utils/logger.js'
 
 
-
-
 export const createRoute = async (req,res, next)=>{
     try {
         let newRoute = req.body

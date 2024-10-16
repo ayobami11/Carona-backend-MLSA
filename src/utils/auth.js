@@ -15,8 +15,8 @@ export const generateHashedValue = (password) => {
     return hashSync(password, salt)
 }
 
-export const isPasswordCorrect = (password, hash) => {
-    return compareSync(password, hash)
+export const isPasswordCorrect = (password1, password2) => {
+    return compareSync(password1, password2)
 } 
 
 export const createAccessToken = (id) => {
