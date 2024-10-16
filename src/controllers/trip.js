@@ -1,13 +1,13 @@
 import { StatusCodes } from "http-status-codes";
 import z from "zod";
 
-import Route from "../models/route";
-import Trip from "../models/trip";
+import Route from "../models/routes.js";
+import Trip from "../models/trip.js";
 
-import { successResponse, errorResponse } from "../utils/responses";
-import { calculatePrice } from "../utils/calculatePrice";
+import { successResponse, errorResponse } from "../utils/responses.js";
+import { calculatePrice } from "../utils/calculatePrice.js";
 
-import logger from "../utils/logger";
+import logger from "../utils/logger.js";
 
 const tripSchema = z.object({
     pickupPoint: z.string().min(3).max(50),
