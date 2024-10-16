@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import z from "zod";
 
 import Route from "../models/route";
 import Trip from "../models/trip";
@@ -8,8 +9,17 @@ import { calculatePrice } from "../utils/calculatePrice";
 
 import logger from "../utils/logger";
 
+const tripSchema = z.object({
+    pickupPoint: z.string().min(3).max(50),
+    destination: z.string().min(3).max(50),
+    distance: z.number(),
+    duration: z.number().min(1),
+    price: z.number().min(750)
+}).required();
+
 export const getTrip = async (req, res, next) => {
     try {
+        
         logger.info("START: Get A Trip");
 
         const { id: tripId } = req.params;
@@ -34,7 +44,7 @@ export const getTrip = async (req, res, next) => {
 export const createTrip = async (req, res, next) => {
     try {
         logger.info("START: Create A Trip");
-
+        
         const { pickupPoint, destination } = req.body;
         const { userId } = req.user;
 
@@ -50,14 +60,18 @@ export const createTrip = async (req, res, next) => {
 
         const { distance, duration } = existingRoute;
 
-        const existingTrip = await Trip.findOne({
+        const trip = {
             pickupPoint,
             destination,
             createdBy: userId,
             distance,
             duration,
             price: calculatePrice(distance, duration)
-        });
+        }
+
+        tripSchema.parse(trip);
+
+        const existingTrip = await Trip.findOne(trip);
 
         if (existingTrip) {
             logger.info("END: Create A Trip");
