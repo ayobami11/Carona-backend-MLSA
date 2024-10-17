@@ -84,7 +84,7 @@ exports.verifyKYCStatus = async (req, res, next) => {
       { new: true }
     );
     if (!updatedKYC) {
-      return res.status(404).json({ message: "KYC details not found" });
+      return errorResponse(res, StatusCodes.BAD_REQUEST,{ message: "KYC details not found" });
     }
 	user.isVerified = true;
     successResponse(res, StatusCodes.ACCEPTED, `Verified KYC Application`,updatedKYC);
