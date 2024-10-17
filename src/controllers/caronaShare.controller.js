@@ -21,16 +21,16 @@ export const shareATrip = async(req, res, next) =>{
         if(!user){
             return errorResponse(res, StatusCodes.NOT_FOUND, `Kindly Login to access caronaShare`)
         }
-/** 
+ 
     
-        if(!kyc.isVerified){
+        if(!user.isVerified){
                 return errorResponse(res, StatusCodes.UNAUTHORIZED, `Kindly Complete KYC to access CaronaShare!`)
         }
 
-        if(!vehicle.isVerified){
-            return errorResponse(res, StatusCodes.UNAUTHORIZED, `Only Users with Verified Vehicles can use Carona Share!`)
-        }
-   */ 
+        // if(!vehicle.isVerified){
+        //     return errorResponse(res, StatusCodes.UNAUTHORIZED, `Only Users with Verified Vehicles can use Carona Share!`)
+        // }
+    
         const newsharetrip = await shareUser.create({
             from,
             to,
