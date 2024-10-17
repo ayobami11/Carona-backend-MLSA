@@ -93,7 +93,7 @@ exports.verifyKYCStatus = async (req, res, next) => {
   }
 };
 
-exports.rejectKYC = async (req, res, next) => {
+exports.rejectKYCVerificationRequest = async (req, res, next) => {
 	try {
 		const { userId } = req.user._id;
 		const { status } = req.body;
