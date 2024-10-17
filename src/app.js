@@ -17,6 +17,7 @@ app.use(express.json())
 
 // routes
 app.use(`/api/v${API_VERSION}/auth`, authRouter) // http://localhost:3000/api/v1/auth
+app.use(`/api/v${API_VERSION}/routes`, routes) // http://localhost:3000/api/v1/routes
 app.use(`/api/v${API_VERSION}/trips`, tripRouter) // http://localhost:3000/api/v1/trips
 
 app.use("/vehicle", vehicleRouter)

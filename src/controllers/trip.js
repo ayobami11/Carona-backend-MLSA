@@ -78,9 +78,10 @@ export const createTrip = async (req, res, next) => {
             return errorResponse(res, StatusCodes.BAD_REQUEST, "Trip already exists.")
         }
 
-        await Trip.create({ pickupPoint, destination, createdBy: userId });
+        const newTrip = await Trip.create(trip);
+
         logger.info("END: Create A Trip");
-        return successResponse(res, StatusCodes.CREATED, "Trip created successfully.");
+        return successResponse(res, StatusCodes.CREATED, "Trip created successfully.", newTrip);
 
     } catch (error) {
         logger.error(error);
