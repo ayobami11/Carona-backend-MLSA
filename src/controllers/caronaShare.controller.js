@@ -122,10 +122,11 @@ export const deleteAtrip = async(req, res, next) =>{
 
     catch(error){
         logger.error(`END: Trip could not be deleted`)
+        next(error)
     }
 }
 
-export const getAlltrips = async() =>{
+export const getAlltrips = async(req, res, next) =>{
     /* 
     The User is able to retrive all the trips that are completed and pending,
     here is able to keep track of past history
@@ -157,7 +158,7 @@ export const getAlltrips = async() =>{
     }
 }
 
-export const getAShareTrip = async() =>{
+export const getAShareTrip = async(req, res, next) =>{
     
     // User can access a particular share trip based on the trip idea to see reqeusts to join trips and accepted requests.  
     const userId = req.user.userId
@@ -185,6 +186,8 @@ export const getAShareTrip = async() =>{
         
     } catch (error) {
         logger.error(`END: Failed to get a Particular trip!`)
+        next(error)
+
         
     }
     
