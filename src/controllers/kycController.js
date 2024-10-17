@@ -1,10 +1,9 @@
 import { StatusCodes } from "http-status-codes";
-import KYC from "../models/kycModel";
-import { errorResponse, successResponse } from "../utils/responses";
-import User from "../models/auth";
-import { error } from "winston";
+import KYC from "../models/kyc.js";
+import { errorResponse, successResponse } from "../utils/responses.js";
+import User from "../models/auth.js";
 
-exports.submitKYC = async (req, res, next) => {
+export const submitKYC = async (req, res, next) => {
   try {
     logger.info(`START: Attempting to Submit KYC details`);
     const kycData = req.body;
@@ -60,7 +59,7 @@ exports.submitKYC = async (req, res, next) => {
   }
 };
 
-exports.getKYCByUserId = async (req, res, next) => {
+export const getKYCByUserId = async (req, res, next) => {
   try {
     const { userId } = req.user._id;
     const kycDetails = await KYC.findOne({ userId });
@@ -73,7 +72,7 @@ exports.getKYCByUserId = async (req, res, next) => {
   }
 };
 
-exports.verifyKYCStatus = async (req, res, next) => {
+export const verifyKYCStatus = async (req, res, next) => {
   try {
     const { userId } = req.user._id;
 	const { user } = req.user;
@@ -93,7 +92,7 @@ exports.verifyKYCStatus = async (req, res, next) => {
   }
 };
 
-exports.rejectKYCVerificationRequest = async (req, res, next) => {
+export const rejectKYCVerificationRequest = async (req, res, next) => {
 	try {
 		const { userId } = req.user._id;
 		const { status } = req.body;
