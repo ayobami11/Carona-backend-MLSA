@@ -9,6 +9,7 @@ import {routes} from "./routes/routes.js"
 import vehicleRouter from "./routes/vehicle.js";
 import { shareRouter } from "./routes/caronaShareRoutes.js";
 import { adminRouter } from "./routes/adminAuth.js";
+import kycRouter from "./routes/kycRoutes.js";
 
 const app = express()
 
@@ -23,7 +24,8 @@ app.use(`/api/v${API_VERSION}/trips`, tripRouter) // http://localhost:3000/api/v
 app.use("/vehicle", vehicleRouter)
 app.use("/auth", authRouter)
 app.use(`/api/v${API_VERSION}/caronashare`, shareRouter)
-app.use(`/api/v${API_VERSION}/admin`, adminRouter)
+app.use(`/api/v${API_VERSION}/admin`, adminRouter);
+app.use(`/api/v${API_VERSION}/kyc`, kycRouter)
 
 // error handler and stuff middlewares
 
