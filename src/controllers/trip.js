@@ -17,9 +17,31 @@ const tripSchema = z.object({
     price: z.number().min(750)
 }).required();
 
-export const getTrip = async (req, res, next) => {
+export const getAllTrips = async (req, res, next) => {
     try {
-        
+
+        logger.info("START: Get All Trips");
+
+        const { userId } = req.user;
+
+        const trips = await Trip.find({ createdBy: userId });
+
+        if (trips) {
+            logger.info("END: Get All Trips");
+            return successResponse(res, StatusCodes.OK, "Trips fetched successfully.", trips);
+        } else {
+            logger.info("END: Get All Trips");
+            return errorResponse(res, StatusCodes.NOT_FOUND, "No trips were not found.")
+        }
+
+    } catch (error) {
+        logger.error(error);
+        next(error);
+    }
+}
+export const getATrip = async (req, res, next) => {
+    try {
+
         logger.info("START: Get A Trip");
 
         const { id: tripId } = req.params;
@@ -44,7 +66,7 @@ export const getTrip = async (req, res, next) => {
 export const createTrip = async (req, res, next) => {
     try {
         logger.info("START: Create A Trip");
-        
+
         const { pickupPoint, destination } = req.body;
         const { userId } = req.user;
 

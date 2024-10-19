@@ -1,10 +1,11 @@
 import { Router } from "express";
 import isLoggedIn from "../middlewares/auth.js";
-import { createTrip, getTrip, deleteTrip } from "../controllers/trip.js";
+import { getAllTrips, getATrip, createTrip, deleteTrip } from "../controllers/trip.js";
 
 const tripRouter = Router();
 
-tripRouter.get('/:id', isLoggedIn, getTrip);
+tripRouter.get('/', isLoggedIn, getAllTrips);
+tripRouter.get('/:id', isLoggedIn, getATrip);
 
 tripRouter.post('/', isLoggedIn, createTrip);
 

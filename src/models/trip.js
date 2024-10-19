@@ -17,6 +17,15 @@ const tripSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    status: {
+        type: String,
+        enum: ["pending", "ongoing", "completed"],
+        default: "pending"
+    },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
